@@ -1,0 +1,56 @@
+    <div class="container-fluid p-4 bg-dark text-white">
+        <div class="info">
+            <h1>URL SHORTEN APPLICATION</h1>
+        <p>Here every user has their own url</p>
+        </div>
+        <div class="user_icon">
+            <i class='fas fa-user-tie' style='font-size:36px'></i>
+            <!-- get user name -->
+            <p><%=user.userName%></p>
+        </div>
+            <form action="/logout" method="get" id="logoutUser">
+                <!-- logout user -->
+                 <button type="submit">Logout</button>
+            </form>
+           </div>
+        </div> 
+             
+        </div>
+        <!-- gets Full URL given by user -->
+    <form action="/user/<%=user.id%>/url" method="post"  id="shortUrl">  
+    <div class="url_form">
+        <label>ENTER FULL URL : </label>
+        <input type="text" name="urlFull" value="" id="urlFull">
+    <button type="submit">Shorten</button>
+    </div>
+    </form>
+
+    <!-- shows Full URL, Short Url in table form and the table is sorted in ascending order according to Full URL-->
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full URL</th>
+                <th>Short URL</th>
+                <th>Remove Url</th>
+            </tr>
+        </thead>
+    
+    <!--table data-->
+    <%for(let i=0;i<url.length;i++){%>
+
+        <td><%=i+1%></td> 
+        <td><%=url[i].urlFull%></td>
+        <!-- takes user to websites by simply clicking the short url -->
+        <td><a href="/user/<%=user.id%>/url/<%=url[i].id%>/<%=url[i].urlShort%>" target="_blank"><%=url[i].urlShort%></a></td>
+        <td>
+            <form action="/user/<%=user.id%>/url/<%=url[i].id%>" method="post">
+                <a><span> <button type="submit"><i class="fa fa-trash"></i></span></a></button>
+            </form>
+           
+       </td>     
+     </tr>
+     <%}%>
+
+
+      </table>
