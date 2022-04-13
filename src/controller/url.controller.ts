@@ -20,74 +20,14 @@ export class urlController{
     // with Custom Repository
     //Create new Url by user
  private async addUrl(req: Request, res: Response) {
-//   try { 
-//     const id=req.params.id;
-//  const user=await this.userRepository.findOneOrFail(id)
-// // const result:Url= await this.urlRepository.query("select * from url where userId = ?",[user.id])
-//  if(user){
-
-//    //
-//   //  const result:Url= await this.urlRepository.query("select * from url where userId = ?",[user.id]);
-//   //  if (result) {
-//   //   const checkUrl=JSON.parse(JSON.stringify(result))
-//   //   //const arrayobject=nameurl[checkUrl]
-//   //  console.log(checkUrl[0].urlFull);
-//     // const a=checkUrl.map((a:Url)=>{a:return checkUrl[0]
-//     // });
-//     // if(result.urlFull===a){
-//     //   res.send('ff')
-//     // }
-//   //     checkUrl.forEach((v:Url) =>{
-//   //  if ( v.urlFull===req.body.urlFull) {
-//   //   return res.status(406).send({message:'Cannot Be Empty'})
-//   //  }
-//   //    });
-//   //  }
-//    //
-//   //  }
-//   if (!req.body.urlFull) {
-//    return res.status(406).send({message:'Cannot Be Empty'})
-//   } 
-//  const url=new Url();
-//  url.urlFull=req.body.urlFull;
-//  url.urlShort=shortId.generate();
-//  url.userId=user.id;
-//  const resultUrl=await this.urlRepository.save(url)
-//  const tokenData=req.cookies
-//  const token=tokenData.token     
-//  return res.redirect(`/url/?token=${token}`);
-//  }
-//  } catch (error) {
-//   return res.status(500).send('Internal Error');
-//  }
   try { 
     const id=req.params.id;
  const user=await this.userRepository.findOneOrFail(id)
  if(user){
 if (!req.body.urlFull) {
    return res.status(406).send({message:'Cannot Be Empty'})
-  } 
-   //
-  //    const result:Url= await this.urlRepository.query("select * from url where userId = ?",[user.id]);
-  //  if (result) {
-  //   const checkUrl=JSON.parse(JSON.stringify(result))
-  //   checkUrl.forEach((b:Url)=>{
-  //     if(b.urlFull ===req.body.urlFull){
-  //       return res.status(500).json({message:'same'});
-//         const tokenData=req.cookies
-//  const token=tokenData.token     
-//  return res.redirect(`/url/?token=${token}`);
-      // }
-    
-//     });
-//   //   if(a.indexOf(a.))
-//   //  res.send('aaa') 
-// //   const tokenData=req.cookies
-// //  const token=tokenData.token     
-// //  return res.redirect(`/url/?token=${token}`);
-  //  }
-   
-      const url=new Url();
+  }   
+ const url=new Url();
  url.urlFull=req.body.urlFull;
  url.urlShort=shortId.generate();
  url.userId=user.id;
@@ -95,9 +35,6 @@ if (!req.body.urlFull) {
  const tokenData=req.cookies
  const token=tokenData.token     
  return res.redirect(`/url`);
-   
-  
-
  }
  } catch (error) {
   return res.status(500).send('Internal Error');
