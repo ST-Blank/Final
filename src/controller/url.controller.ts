@@ -78,7 +78,6 @@ export class urlController{
 //          return res.status(500).send('Internal Error');
 //      }
 //     } 
-
    //Remove Url by ID
    private async removeUrl(req:Request,res:Response){
     try {
