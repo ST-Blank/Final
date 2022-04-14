@@ -22,38 +22,30 @@ export class urlController{
  private async addUrl(req: Request, res: Response) {
   try { 
     const id=req.params.id;
- const user=await this.userRepository.findOneOrFail(id)
- if(user){
-if (!req.body.urlFull) {
-   return res.status(406).send({message:'Cannot Be Empty'})
-  }   
- const url=new Url();
- url.urlFull=req.body.urlFull;
- url.urlShort=shortId.generate();
- url.userId=user.id;
- const resultUrl=await this.urlRepository.save(url)
- const tokenData=req.cookies
- const token=tokenData.token     
- return res.redirect(`/url`);
- }
- } catch (error) {
-  return res.status(500).send('Internal Error');
- }
-  }
-
-      //Get Url by user
-      private async getUrl(req:Request,res:Response){
-        try {
-          const id=req.params.id;
-     const user=await this.userRepository.findOneOrFail(id)
-     if(user){
-   const result = await this.urlRepository.query("select * from url where userId = ? ORDER BY urlFull",[user.id])
-    return res.status(200).json(result);
+    const user=await this.userRepository.findOneOrFail(id)
+    if(user){
+      if (!req.body.urlFull) {
+        return res.status(406).send({message:'Cannot Be Empty'})
+        }   
+    const url=new Url();
+    url.urlFull=req.body.urlFull;
+    //for duplicate url
+    const url_present=await this.urlRepository.query("select * from url where urlFull = ? AND userId= ? ORDER BY urlFull",[url.urlFull,user.id]);
+    // console.log(url_present)
+    // console.log(url_present.length)
+    if(url_present.length > 0){
+      console.log(url_present)
+      return res.status(200).send({message:'url already present'})
     }
-        } catch (error) {
-          return res.status(500).send('Internal Error');
-        }  
-      }
+    url.urlShort=shortId.generate();
+    url.userId=user.id;
+    const resultUrl=await this.urlRepository.save(url)    
+    return res.redirect('/url');
+    }
+    } catch (error) {
+      return res.status(500).send('Internal Error');
+    }
+  }
 
      //Get Url by ID
  private async getUrlwithID(req:Request,res:Response){
